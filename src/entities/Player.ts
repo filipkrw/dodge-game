@@ -8,9 +8,10 @@ export default class Player {
   moveSpeed: number = 300
   goal: Two.Vector
 
-  constructor(two: Two) {
+  constructor(two: Two, layer: Two.Group) {
     this.two = two
     this.pawn = this.createPawn()
+    layer.add(this.pawn)
   }
 
   moveToGoal(deltaTime: number) {

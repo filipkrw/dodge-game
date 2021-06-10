@@ -8,12 +8,12 @@ import { Score } from '../entities/Score'
 import { gameState$ } from './gameState'
 import { finalizeWithValue } from '../util'
 
-export function spawnEnemies(two: Two, player: Player, score: Score) {
-  return timer(0, 300).pipe(map(() => spawnEnemy(two, player, score)))
+export function spawnEnemies(two: Two, player: Player, score: Score, layer: Two.Group) {
+  return timer(0, 300).pipe(map(() => spawnEnemy(two, player, score, layer)))
 }
 
-function spawnEnemy(two: Two, player: Player, score: Score) {
-  of(new Enemy(two, player.getPosition()))
+function spawnEnemy(two: Two, player: Player, score: Score, layer: Two.Group) {
+  of(new Enemy(two, player.getPosition(), layer))
     .pipe(
       combineLatestWith(deltaTime$),
       withLatestFrom(gameState$),

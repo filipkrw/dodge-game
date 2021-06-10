@@ -5,7 +5,7 @@ export class Score {
   score = 0
   scoreText: Two.Text
 
-  constructor(two: Two) {
+  constructor(two: Two, layer: Two.Group) {
     this.two = two
     this.scoreText = new Two.Text(`Score: ${this.score}`, 60, 70, {
       size: 32,
@@ -13,6 +13,7 @@ export class Score {
       fill: '#fff',
       visible: false,
     })
+    layer.add(this.scoreText)
 
     // @ts-ignore
     two.add(this.scoreText)

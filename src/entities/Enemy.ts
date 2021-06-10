@@ -10,9 +10,10 @@ export default class Enemy {
 
   maxOutOfBoundsSpawnOffset = 100
 
-  constructor(two: Two, goal: Two.Vector) {
+  constructor(two: Two, goal: Two.Vector, layer: Two.Group) {
     this.two = two
     this.createPawn()
+    layer.add(this.pawn)
     this.setMovementDirection(goal)
     this.spawnTime = new Date().getTime()
   }
@@ -77,7 +78,7 @@ export default class Enemy {
   update(deltaTime: number) {
     this.pawn.translation.lerp(
       this.pawn.translation.clone().addSelf(this.direction),
-      200 * deltaTime
+      220 * deltaTime
     )
   }
 }

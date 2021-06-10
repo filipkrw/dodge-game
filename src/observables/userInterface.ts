@@ -1,4 +1,4 @@
-import { BehaviorSubject, EMPTY, of } from 'rxjs'
+import { BehaviorSubject, EMPTY, fromEvent, of } from 'rxjs'
 import { switchMap, mergeWith, withLatestFrom, tap } from 'rxjs/operators'
 import { Score } from '../entities/Score'
 import { GameState, gameState$ } from './gameState'
@@ -7,7 +7,11 @@ import { Title } from '../entities/Title'
 export const Interface = (score: Score, title: Title, subtitle: Title) => {
   const interface$ = of(score).pipe(
     withLatestFrom(of(title), of(subtitle)),
-    tap(([score]) => score.update())
+    tap(([score, title, subtitle]) => {
+      score.update()
+      title.center()
+      subtitle.center()
+    })
   )
 
   return {
@@ -21,7 +25,7 @@ export const Interface = (score: Score, title: Title, subtitle: Title) => {
         title.text.value = 'Click anywhere to start'
 
         subtitle.text.visible = true
-        subtitle.text.value = 'Try to avoid azure balls.'
+        subtitle.text.value = 'Avoid azure balls'
       })
     ),
     onPlay$: interface$.pipe(
@@ -37,10 +41,10 @@ export const Interface = (score: Score, title: Title, subtitle: Title) => {
         score.scoreText.visible = false
 
         title.text.visible = true
-        title.text.value = `Game over!`
+        title.text.value = `You manged to outlive ${score.score} menacing azure balls`
 
         subtitle.text.visible = true
-        subtitle.text.value = `You manged to outlive ${score.score} menacing azure balls.`
+        subtitle.text.value = 'Press space to play again'
       })
     ),
   }
