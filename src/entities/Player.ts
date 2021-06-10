@@ -56,4 +56,10 @@ export default class Player {
     const playerToEnemyDistance = this.pawn.translation.distanceTo(enemy.pawn.translation)
     return playerToEnemyDistance + 5 < this.pawnRadius + enemy.pawnRadius
   }
+
+  reset() {
+    const middleOfScreen = new Two.Vector(this.two.width / 2, this.two.height / 2)
+    this.pawn.translation = middleOfScreen
+    this.goal = null
+  }
 }

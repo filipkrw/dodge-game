@@ -1,5 +1,5 @@
 import * as Two from 'twojs-ts'
-import { getRandomIntInRange } from './util'
+import { getRandomIntInRange } from '../util'
 
 export default class Enemy {
   two: Two
