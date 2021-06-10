@@ -1,8 +1,10 @@
 import * as Two from 'twojs-ts'
+import Enemy from './Enemy'
 
 export default class Player {
   two: Two
-  pawn: Two.Path
+  pawn: Two.Circle
+  pawnRadius: number = 30
   moveSpeed: number = 300
   goal: Two.Vector
 
@@ -27,7 +29,7 @@ export default class Player {
   }
 
   createPawn(): Two.Path {
-    const pawn = this.two.makeCircle(this.two.width / 2, this.two.height / 2, 30)
+    const pawn = this.two.makeCircle(this.two.width / 2, this.two.height / 2, this.pawnRadius)
     pawn.fill = '#FF8000'
     pawn.linewidth = 0
     return pawn
@@ -48,5 +50,10 @@ export default class Player {
 
   getPosition() {
     return this.pawn.translation
+  }
+
+  isCollidingWithEnemy(enemy: Enemy) {
+    const playerToEnemyDistance = this.pawn.translation.distanceTo(enemy.pawn.translation)
+    return playerToEnemyDistance + 5 < this.pawnRadius + enemy.pawnRadius
   }
 }

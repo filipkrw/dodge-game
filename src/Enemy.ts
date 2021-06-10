@@ -4,6 +4,7 @@ import { getRandomIntInRange } from './util'
 export default class Enemy {
   two: Two
   pawn: Two.Path
+  pawnRadius: number = 20
   direction: Two.Vector
   spawnTime: number
 
@@ -18,7 +19,7 @@ export default class Enemy {
 
   createPawn() {
     const startingPosition = this.getOutOfBoundsPosition()
-    const pawn = this.two.makeRectangle(startingPosition.x, startingPosition.y, 30, 30)
+    const pawn = this.two.makeCircle(startingPosition.x, startingPosition.y, this.pawnRadius)
 
     pawn.fill = '#34b4eb'
     pawn.linewidth = 0
@@ -27,6 +28,9 @@ export default class Enemy {
   }
 
   getOutOfBoundsPosition(): Two.Vector {
+    // const x = getRandomIntInRange(0, this.two.width)
+    // const y = getRandomIntInRange(0, this.two.height)
+    // return new Two.Vector(x, y)
     if (Math.random() < this.two.width / (this.two.width + this.two.height)) {
       // Enemy spawns top or bottom of the screen
       const x = getRandomIntInRange(0, this.two.width)

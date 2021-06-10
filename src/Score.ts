@@ -11,6 +11,7 @@ export class Score {
       size: 32,
       alignment: 'left',
       fill: '#fff',
+      visible: false,
     })
 
     // @ts-ignore
